@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgar Camacho Mercado - Diseño Web 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            background: linear-gradient(135deg, #5a67d8 0%, #7c3aed 100%);
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .settings-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .settings-icon:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .settings-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #7c3aed;
+            margin: 0 auto 25px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 18px;
+            color: #7c3aed;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6366f1;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.6);
+        }
+
+        .timestamp {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 15px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #1e293b;
+        }
+
+        @media (max-width: 480px) {
+            .card-container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 30px 20px;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .name {
+                font-size: 24px;
+            }
+            
+            .title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="settings-icon" onclick="configuracion()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+            </svg>
+        </div>
+        
+        <div class="card">
+            <!-- IMPORTANTE: Cambia "perfil.jpg" por el nombre de tu foto -->
+            <img src="perfil.jpg.PNG" alt="Edgar camacho" class="profile-image" id="profileImg">
+            
+            <h1 class="name">Edgar Camacho Mercado</h1>
+            <p class="title">Diseño Web II</p>
+            <p class="subtitle">Estudiante</p>
+            <p class="description">
+                Apasionado por crear experiencias web modernas y accesibles. Especializado en HTML5, CSS3 y JavaScript.
+            </p>
+            
+            <button class="contact-btn" onclick="contactar()">Contactar</button>
+            
+            <div class="timestamp" id="timestamp">
+                Fecha y hora actual: <span id="datetime"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar fecha y hora (formato yyyy-MM-dd HH:mm:ss)
+        function actualizarFechaHora() {
+            const ahora = new Date();
+            const año = ahora.getFullYear();
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            
+            const fechaHora = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+            document.getElementById('datetime').textContent = fechaHora;
+        }
+
+        // Actualizar cada segundo
+        actualizarFechaHora();
+        setInterval(actualizarFechaHora, 1000);
+
+        // Función de contacto
+        function contactar() {
+            // Cambia este email por el tuyo
+            window.location.href = 'mailto:jim.requena@email.com';
+            // O usa: alert('Contáctame en: jim.requena@email.com');
+        }
+
+        // Función del icono de configuración
+        function configuracion() {
+            alert('⚙️ Opciones de configuración\n\n¡Aquí puedes agregar más funcionalidades!');
+        }
+
+        // Mensaje de bienvenida en consola
+        console.log('%c👋 Hola! Bienvenido a mi perfil', 'color: #7c3aed; font-size: 20px; font-weight: bold;');
+        console.log('%cDesarrollado por Jim Requena', 'color: #6366f1; font-size: 14px;');
+    </script>
+</body>
+</html>
