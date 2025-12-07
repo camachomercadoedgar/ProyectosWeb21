@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sitio Moderno Elegante — Versión Avanzada</title>
+
+  <style>
+    /* ===== Reset & base ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0f1724; /* fallback */
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.08);
+      --accent: #6a11cb;
+      --accent-2:#2575fc;
+      --muted: rgba(255,255,255,0.7);
+      --card:#0b1220;
+      --glass-strong: rgba(255,255,255,0.07);
+      --radius:14px;
+      --transition: 280ms cubic-bezier(.2,.9,.3,1);
+    }
+    html,body{height:100%}
+    body{
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background: linear-gradient(120deg,#0b1220 0%, #0f1724 45%, #071029 100%);
+      color: #e6eef8;
+      min-height:100vh;
+      overflow-x:hidden;
+      transition: background 400ms ease;
+    }
+
+    /* Animated gradient background (subtle) */
+    .animated-gradient{
+      position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(60deg,#071029 0%, #102037 25%, #15213a 50%, #0b1230 75%);
+      background-size:400% 400%;animation:grad 12s linear infinite;
+      opacity:0.85;mix-blend-mode:screen;
+    }
+    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Page transition */
+    .page-enter{opacity:0;transform:translateY(6px)}
+    .page-enter-active{opacity:1;transform:none;transition:opacity .45s ease, transform .45s ease}
+    .page-leave{opacity:1}
+    .page-leave-active{opacity:0;transform:translateY(-6px);transition:opacity .35s ease, transform .35s ease}
+
+    /* ===== Navbar ===== */
+    .navbar{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:1180px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);z-index:100}
+    .logo{font-weight:700;letter-spacing:1px;color:var(--accent);font-size:1.15rem}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;transition:var(--transition)}
+    .nav-links a:hover{color:#fff;background:linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 120%);box-shadow:0 6px 22px rgba(37,117,252,0.12);}
+
+    /* Hamburger mobile */
+    .hamburger{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;cursor:pointer}
+    .hamburger .bar{width:20px;height:2px;background:var(--muted);display:block;position:relative}
+
+    /* ===== Hero ===== */
+    .hero{min-height:78vh;display:flex;align-items:center;justify-content:center;padding:110px 24px 40px;position:relative}
+    .hero-inner{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center}
+    .hero h1{font-size:2.6rem;line-height:1.02;margin-bottom:14px;color:#fff;text-shadow:0 8px 40px rgba(0,0,0,0.6)}
+    .hero p{color:rgba(255,255,255,0.8);margin-bottom:18px}
+
+    /* Glass card */
+    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.06);padding:22px;border-radius:var(--radius);backdrop-filter: blur(10px);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+
+    /* Buttons (3D, loading, modal, sound, effects) */
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:600;transition:transform .18s ease, box-shadow .18s ease}
+    .btn:active{transform:translateY(3px)}
+
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 10px 30px rgba(38,84,255,0.12)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* Loading state */
+    .btn.loading{pointer-events:none;opacity:0.85}
+    .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.22);border-top-color:white;animation:spin .9s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Grid for products */
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
+    .product{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);transition:transform .25s ease, box-shadow .25s ease}
+    .product img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+    .product h4{margin-bottom:6px}
+    .product p{font-size:0.92rem;color:rgba(255,255,255,0.72)}
+    .product .price{font-weight:700;margin-top:8px}
+    .product:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(4,12,28,0.6)}
+
+    /* Floating cart */
+    .cart-btn{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px 16px;border-radius:14px;box-shadow:0 18px 50px rgba(38,84,255,0.18);z-index:120}
+    .cart-count{background:#ff6b6b;color:white;border-radius:999px;padding:2px 8px;font-size:0.85rem;margin-left:8px}
+
+    /* Offcanvas cart */
+    .offcart{position:fixed;right:-420px;top:0;height:100vh;width:380px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(10px);border-left:1px solid rgba(255,255,255,0.04);padding:24px;transition:right .35s ease;z-index:130}
+    .offcart.open{right:0}
+    .offcart h3{margin-bottom:14px}
+    .cart-items{display:flex;flex-direction:column;gap:12px;max-height:55vh;overflow:auto;padding-right:6px}
+    .cart-item{display:flex;gap:10px;align-items:center}
+
+    /* Contact form */
+    form.contact{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    input,textarea,select{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)}
+    input:focus,textarea:focus{outline:none;box-shadow:0 8px 30px rgba(37,117,252,0.08);border:1px solid rgba(37,117,252,0.6)}
+    .error{color:#ff6b6b;font-size:0.9rem}
+
+    /* Footer */
+    footer{margin-top:40px;padding:28px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+
+    /* Admin panel drawer */
+    .admin-drawer{position:fixed;left:-520px;top:0;width:480px;height:100vh;background:linear-gradient(180deg,#071029 0%, #091228 100%);padding:20px;border-right:1px solid rgba(255,255,255,0.03);transition:left .35s ease;z-index:150}
+    .admin-drawer.open{left:0}
+
+    /* Dark mode auto & toggle */
+    .mode-toggle{display:inline-flex;align-items:center;gap:8px}
+    .switch{width:46px;height:26px;background:rgba(255,255,255,0.1);border-radius:999px;padding:3px;display:inline-flex;align-items:center;cursor:pointer}
+    .knob{width:20px;height:20px;background:white;border-radius:50%;transition:transform .25s ease}
+    .dark body{--accent:#9b7bff;--accent-2:#5ea0ff}
+
+    /* Mobile adjustments */
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.hamburger{display:flex}}
+    @media(max-width:560px){.products{grid-template-columns:1fr}}
+
+    /* Simple reveal animation class (AOS-like) */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    /* Glassier stronger */
+    .glass-strong{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);box-shadow:0 12px 40px rgba(2,6,23,0.6);backdrop-filter: blur(14px)}
+  </style>
+</head>
+<body>
+  <div class="animated-gradient" aria-hidden></div>
+
+  <!-- Page container (for transitions) -->
+  <main id="page" class="page-enter page-enter-active">
+
+    <!-- NAVBAR -->
+    <header class="navbar glass">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="logo">MiMarca</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Diseño · Productos · Servicios</div>
+      </div>
+      <nav style="display:flex;align-items:center;gap:12px">
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#portafolio">Portafolio</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+
+        <button class="btn btn-ghost" id="open-admin">Admin</button>
+        <button class="btn btn-primary" id="open-cart">Carrito <span class="cart-count" id="cart-count">0</span></button>
+
+        <div class="hamburger" id="hamb">
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1 class="reveal">Crea experiencias memorables.<br><span style="color:var(--accent)">Diseño elegante</span> y funcionalidad real.</h1>
+          <p class="reveal" style="max-width:560px">Animaciones suaves, modo oscuro automático, carrito funcional y panel admin mock — todo en una sola página demo.</p>
+
+          <div style="display:flex;gap:12px;margin-top:18px">
+            <button class="btn btn-primary" id="cta-buy">Comprar ahora</button>
+            <button class="btn btn-ghost" id="cta-modal">Contactar</button>
+            <button class="btn btn-ghost" id="toggle-sound">🔊</button>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:8px;align-items:center">
+            <div class="mode-toggle">
+              <div style="font-size:0.9rem;color:var(--muted)">Modo oscuro</div>
+              <div class="switch" id="theme-switch" title="Alternar tema">
+                <div class="knob" id="knob"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="glass-strong" style="padding:18px">
+          <h3 style="margin-bottom:6px">Productos destacados</h3>
+          <div class="products" id="products">
+            <!-- JS will inject cards -->
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="seccion">
+      <div class="glass" style="max-width:1100px;margin:0 auto">
+        <h2 class="reveal">Nuestros Servicios</h2>
+        <p class="reveal">Diseño web, integración de tiendas, soporte técnico y consultoría UX/UI.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px">
+          <div class="glass" style="flex:1;min-width:220px;padding:16px">Diseño personalizado</div>
+          <div class="glass" style="flex:1;min-width:220px;padding:16px">E-commerce y pasarelas</div>
+          <div class="glass" style="flex:1;min-width:220px;padding:16px">Mantenimiento y seguridad</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTAFOLIO -->
+    <section id="portafolio" class="seccion fondo">
+      <div style="max-width:1100px;margin:0 auto">
+        <h2 class="reveal">Portafolio</h2>
+        <div class="reveal" style="margin-top:12px">Proyectos reales con foco en conversión y experiencia de usuario.</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px">
+          <div class="glass" style="padding:14px">Proyecto A</div>
+          <div class="glass" style="padding:14px">Proyecto B</div>
+          <div class="glass" style="padding:14px">Proyecto C</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="seccion">
+      <div style="max-width:720px;margin:0 auto" class="glass">
+        <h2>Contacto</h2>
+        <p style="color:var(--muted)">Envía tu consulta y te responderemos pronto.</p>
+        <form class="contact" id="contact-form" novalidate>
+          <input type="text" id="name" placeholder="Nombre" required />
+          <input type="email" id="email" placeholder="Correo electrónico" required />
+          <textarea id="message" rows="4" placeholder="Mensaje" required></textarea>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn btn-primary" type="submit" id="submit-contact">Enviar</button>
+            <div id="contact-feedback" style="color:#9ee6a0"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="glass" style="max-width:1100px;margin:24px auto;border-radius:12px">
+      <div style="display:flex;gap:12px;align-items:center">
+        <strong>MiMarca</strong>
+        <small style="color:var(--muted)">— Diseño y desarrollo profesional</small>
+      </div>
+      <div style="color:var(--muted);font-size:0.9rem">© <span id="year"></span> MiMarca · Todos los derechos reservados</div>
+    </footer>
+
+  </main>
+
+  <!-- Floating cart button -->
+  <button class="cart-btn" id="cart-toggle">Carrito <span class="cart-count" id="cart-count-2">0</span></button>
+
+  <!-- Off-canvas cart -->
+  <aside class="offcart" id="offcart">
+    <h3>Tu carrito</h3>
+    <div class="cart-items" id="cart-items"></div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <strong>Total: <span id="cart-total">$0.00</span></strong>
+      <button class="btn btn-primary" id="checkout">Pagar</button>
+    </div>
+  </aside>
+
+  <!-- Admin drawer -->
+  <aside class="admin-drawer" id="admin-drawer">
+    <h3>Panel Admin (demo)</h3>
+    <p style="color:var(--muted)">Control básico de inventario y pedidos.</p>
+    <div style="margin-top:12px">
+      <button class="btn btn-ghost" id="close-admin">Cerrar</button>
+    </div>
+    <div style="margin-top:16px;color:var(--muted)">
+      <strong>Productos:</strong>
+      <ul id="admin-products" style="margin-top:8px"></ul>
+    </div>
+  </aside>
+
+  <!-- Modal (contact quick) -->
+  <div id="modal" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(5,10,20,0.5),rgba(5,10,20,0.5));z-index:200">
+    <div class="glass" style="width:92%;max-width:520px">
+      <h3>Enviar mensaje</h3>
+      <p style="color:var(--muted)">Rellena y enviaremos una respuesta a tu correo.</p>
+      <form id="modal-form" class="contact" novalidate>
+        <input id="m-name" required placeholder="Nombre" />
+        <input id="m-email" type="email" required placeholder="Correo" />
+        <textarea id="m-msg" rows="4" required placeholder="Mensaje"></textarea>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button type="button" class="btn btn-ghost" id="modal-close">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Canvas for subtle particles (optional) -->
+  <canvas id="particle-canvas" style="position:fixed;inset:0;z-index:-1;pointer-events:none"></canvas>
+
+<script>
+// ========== Utils & Data ==========
+const productsData = [
+  {id:1,title:'Auriculares Gamer X',price:79.99,img:'https://i.postimg.cc/nzqC5d0v/auriculares.jpg'},
+  {id:2,title:'Teclado Mecánico Pro',price:129.00,img:'https://i.postimg.cc/d1bN4L0W/teclado.jpg'},
+  {id:3,title:'Setup Completo RTX',price:1299.00,img:'https://i.postimg.cc/nrJ1GRdQ/pcsetup.jpg'}
+];
+
+// DOM refs
+const productsEl=document.getElementById('products');
+const cartCountEls=[document.getElementById('cart-count'),document.getElementById('cart-count-2')];
+const cartItemsEl=document.getElementById('cart-items');
+const cartTotalEl=document.getElementById('cart-total');
+let cart = JSON.parse(localStorage.getItem('demo_cart')||'[]');
+
+// Fill year
+document.getElementById('year').innerText=new Date().getFullYear();
+
+// ========== Render products ==========
+function renderProducts(){
+  productsEl.innerHTML='';
+  productsData.forEach(p=>{
+    const card=document.createElement('div');card.className='product';
+    card.innerHTML=`<img src="${p.img}" alt="${p.title}"><h4>${p.title}</h4><p class="price">$${p.price.toFixed(2)}</p><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary add-cart" data-id="${p.id}">Agregar</button><button class="btn btn-ghost view" data-id="${p.id}">Ver</button></div>`;
+    productsEl.appendChild(card);
+  });
+}
+
+// ========== Cart actions ==========
+function updateCartUI(){
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  cartCountEls.forEach(e=>e.innerText=count);
+  cartItemsEl.innerHTML='';
+  let total=0;
+  cart.forEach(item=>{
+    const el=document.createElement('div');el.className='cart-item';
+    el.innerHTML=`<div style="flex:1"><strong>${item.title}</strong><div style="color:var(--muted)">${item.qty} x $${item.price.toFixed(2)}</div></div><div><button class="btn btn-ghost small-remove" data-id="${item.id}">Eliminar</button></div>`;
+    cartItemsEl.appendChild(el);
+    total += item.qty*item.price;
+  });
+  cartTotalEl.innerText = `$${total.toFixed(2)}`;
+  localStorage.setItem('demo_cart', JSON.stringify(cart));
+}
+
+function addToCart(id){
+  const p = productsData.find(x=>x.id===id);
+  const found = cart.find(x=>x.id===id);
+  if(found){found.qty += 1;} else cart.push({id:p.id,title:p.title,price:p.price,qty:1});
+  updateCartUI();
+}
+
+function removeFromCart(id){cart = cart.filter(x=>x.id!==id);updateCartUI();}
+
+// Delegation for dynamic buttons
+document.body.addEventListener('click',e=>{
+  const add = e.target.closest('.add-cart');
+  const view = e.target.closest('.view');
+  const remove = e.target.closest('.small-remove');
+  if(add){const id=+add.dataset.id;add.classList.add('loading');setTimeout(()=>{add.classList.remove('loading');addToCart(id)},400)}
+  if(view){const id=+view.dataset.id;alert('Detalle del producto: '+productsData.find(x=>x.id===id).title)}
+  if(remove){const id=+remove.dataset.id;removeFromCart(id)}
+});
+
+// ==== Cart toggle ====
+const offcart = document.getElementById('offcart');
+const cartToggle = document.getElementById('cart-toggle');
+cartToggle.addEventListener('click',()=>{offcart.classList.toggle('open')});
+
+// Checkout (simulate)
+document.getElementById('checkout').addEventListener('click',()=>{
+  if(cart.length===0){alert('El carrito está vacío');return}
+  document.getElementById('checkout').classList.add('loading');setTimeout(()=>{alert('Compra simulada realizada. ¡Gracias!');cart=[];updateCartUI();document.getElementById('checkout').classList.remove('loading');offcart.classList.remove('open')},900)
+})
+
+// ========== Admin drawer demo ==========
+const admin = document.getElementById('admin-drawer');
+document.getElementById('open-admin').addEventListener('click',()=>{admin.classList.add('open');renderAdmin()});
+document.getElementById('close-admin').addEventListener('click',()=>admin.classList.remove('open'));
+function renderAdmin(){
+  const ul=document.getElementById('admin-products');ul.innerHTML='';productsData.forEach(p=>{const li=document.createElement('li');li.innerText=`${p.title} — $${p.price}`;ul.appendChild(li)});
+}
+
+// ========== Modal (contact) ==========
+const modal = document.getElementById('modal');
+document.getElementById('cta-modal').addEventListener('click',()=>modal.style.display='flex');
+document.getElementById('modal-close').addEventListener('click',()=>modal.style.display='none');
+
+// Modal form handling
+document.getElementById('modal-form').addEventListener('submit',e=>{e.preventDefault();document.querySelector('#modal .btn-primary').classList.add('loading');setTimeout(()=>{document.querySelector('#modal .btn-primary').classList.remove('loading');modal.style.display='none';alert('Mensaje enviado (simulado)');},900)})
+
+// Contact form validation
+const contactForm=document.getElementById('contact-form');
+contactForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const message=document.getElementById('message').value.trim();
+  if(!name||!email||!message){document.getElementById('contact-feedback').innerText='Por favor completa todos los campos';setTimeout(()=>document.getElementById('contact-feedback').innerText='',2800);return}
+  // Simple email regex
+  const mailre=/^\S+@\S+\.\S+$/;
+  if(!mailre.test(email)){document.getElementById('contact-feedback').innerText='Email inválido';setTimeout(()=>document.getElementById('contact-feedback').innerText='',2800);return}
+  document.getElementById('submit-contact').classList.add('loading');setTimeout(()=>{document.getElementById('submit-contact').classList.remove('loading');document.getElementById('contact-feedback').innerText='Mensaje enviado (simulado)';contactForm.reset();setTimeout(()=>document.getElementById('contact-feedback').innerText='',3000)},900)
+})
+
+// ========== Sound (subtle) ==========
+const audio = new Audio('https://www.fesliyanstudios.com/play-mp3/4380');
+document.getElementById('toggle-sound').addEventListener('click',()=>{audio.currentTime=0;audio.volume=0.3;audio.play();});
+
+// ========== Theme auto-detect & toggle ==========
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const knob = document.getElementById('knob');
+function applyTheme(dark){if(dark){document.documentElement.style.setProperty('--accent','#9b7bff');document.documentElement.style.setProperty('--accent-2','#5ea0ff');knob.style.transform='translateX(20px)';}else{document.documentElement.style.setProperty('--accent','#6a11cb');document.documentElement.style.setProperty('--accent-2','#2575fc');knob.style.transform='translateX(0)';}}
+applyTheme(prefersDark);
+
+document.getElementById('theme-switch').addEventListener('click',()=>{
+  const isDark = knob.style.transform==='translateX(20px)';
+  applyTheme(!isDark);
+});
+
+// ========== Page reveal (AOS-like) via IntersectionObserver ==========
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show')} })},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Also reveal glass children
+document.querySelectorAll('.glass, .glass-strong, .product').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+
+// ========== Page enter animation wrapper ==========
+window.addEventListener('load',()=>{const page=document.getElementById('page');page.classList.remove('page-enter');});
+
+// ========== Particles background (light) ==========
+const c = document.getElementById('particle-canvas');const ctx=c.getContext('2d');function resize(){c.width=innerWidth;c.height=innerHeight}window.addEventListener('resize',resize);resize();
+let pts=[];function initParticles(){pts=[];for(let i=0;i<120;i++){pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.8+0.6,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3})}}initParticles();function tick(){ctx.clearRect(0,0,c.width,c.height);for(const p of pts){p.x+=p.vx;p.y+=p.vy; if(p.x<0)p.x=c.width; if(p.y<0)p.y=c.height; if(p.x>c.width)p.x=0; if(p.y>c.height)p.y=0; ctx.fillStyle='rgba(120,140,255,0.06)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();}requestAnimationFrame(tick)}tick();
+
+// ========== Initialize page ==========
+renderProducts();updateCartUI();
+
+// Small helper: CTA buy -> add first product & open cart
+document.getElementById('cta-buy').addEventListener('click',()=>{document.querySelector('.product .add-cart')?.click();document.getElementById('offcart')?.classList.add('open');});
+
+// product buttons may not be immediately present (renderProducts created them), but delegation above handles
+
+// Accessibility: close modal with Esc
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.style.display='none';admin.classList.remove('open');offcart.classList.remove('open')}})
+
+</script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

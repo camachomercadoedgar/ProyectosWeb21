@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Modern | Elegante & Responsive</title>
+    <style>
+        /* ===================================== RESET ===================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #8b5cf6;
+            --color-primary-light: #a78bfa;
+            --color-primary-dark: #7c3aed;
+            --color-secondary: #ec4899;
+            --color-accent: #14b8a6;
+            --color-text: #1e293b;
+            --color-text-light: #64748b;
+            --color-bg: #0f172a;
+            --color-bg-light: #1e293b;
+            --color-card: #ffffff;
+            --spacing: 1.5rem;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #3b82f6 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--color-card);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ===================================== HEADER ===================================== */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===================================== BOTONES MODERNOS ===================================== */
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(20, 184, 166, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-primary-light);
+            color: var(--color-primary-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-primary-light);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* ===================================== GALLERY GRID ===================================== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===================================== GALLERY ITEMS ===================================== */
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+            filter: brightness(0.8);
+        }
+
+        /* Overlay moderno */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(139, 92, 246, 0.95) 0%,
+                rgba(236, 72, 153, 0.7) 50%,
+                transparent 100%
+            );
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .overlay p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .overlay-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-overlay {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-view {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--color-primary);
+        }
+
+        .btn-view:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .btn-like {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-like:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Featured items */
+        .gallery-item.featured {
+            grid-column: span 2;
+        }
+
+        /* ===================================== EXPLANATION SECTION ===================================== */
+        .explanation {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .explanation h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .code-example {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+        }
+
+        .code-example h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .code-example pre {
+            margin: 0;
+        }
+
+        .code-example code {
+            color: #a78bfa;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border-left: 4px solid;
+            transition: var(--transition);
+            border-image: var(--gradient-primary) 1;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===================================== RESPONSIVE ===================================== */
+        @media (max-width: 768px) {
+            .gallery-item.featured {
+                grid-column: span 1;
+            }
+            
+            .explanation {
+                padding: 2rem 1.5rem;
+            }
+
+            .header-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .gallery {
+                gap: 1.25rem;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        /* Animación de carga */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>✨ Photo Gallery Premium</h1>
+            <p class="subtitle">Galería moderna con CSS Grid avanzado, glassmorphism y animaciones fluidas</p>
+            
+            <div class="header-actions">
+                <button class="btn btn-primary">
+                    <span>🎨</span>
+                    Explorar Todo
+                </button>
+                <button class="btn btn-secondary">
+                    <span>⚡</span>
+                    Destacados
+                </button>
+                <button class="btn btn-outline">
+                    <span>🔍</span>
+                    Buscar
+                </button>
+                <button class="btn btn-glass">
+                    <span>⚙️</span>
+                    Filtros
+                </button>
+            </div>
+        </header>
+
+        <!-- Gallery Grid -->
+        <section class="gallery">
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop" alt="Mountain landscape">
+                <div class="overlay">
+                    <h3>Mountain View</h3>
+                    <p>Landscape Photography</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item featured">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=600&fit=crop" alt="Forest path">
+                <div class="overlay">
+                    <h3>Forest Path</h3>
+                    <p>Nature Photography</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=600&fit=crop" alt="Beach sunset">
+                <div class="overlay">
+                    <h3>Beach Sunset</h3>
+                    <p>Seascape</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&h=600&fit=crop" alt="Night sky">
+                <div class="overlay">
+                    <h3>Starry Night</h3>
+                    <p>Astrophotography</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&h=600&fit=crop" alt="Flowers">
+                <div class="overlay">
+                    <h3>Spring Flowers</h3>
+                    <p>Macro Photography</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516617442324-41f12f84c905?w=600&h=600&fit=crop" alt="City lights">
+                <div class="overlay">
+                    <h3>City Lights</h3>
+                    <p>Urban Photography</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=600&fit=crop" alt="Misty forest">
+                <div class="overlay">
+                    <h3>Misty Forest</h3>
+                    <p>Atmospheric</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=600&fit=crop" alt="Desert">
+                <div class="overlay">
+                    <h3>Desert Dunes</h3>
+                    <p>Adventure</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item featured">
+                <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=600&h=600&fit=crop" alt="Waterfall">
+                <div class="overlay">
+                    <h3>Waterfall</h3>
+                    <p>Long Exposure</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=600&fit=crop" alt="Snowy mountains">
+                <div class="overlay">
+                    <h3>Snowy Peaks</h3>
+                    <p>Winter Wonderland</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&h=600&fit=crop" alt="Tropical beach">
+                <div class="overlay">
+                    <h3>Paradise Beach</h3>
+                    <p>Travel</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=600&fit=crop" alt="River valley">
+                <div class="overlay">
+                    <h3>River Valley</h3>
+                    <p>Aerial View</p>
+                    <div class="overlay-buttons">
+                        <button class="btn-overlay btn-view">👁️ Ver</button>
+                        <button class="btn-overlay btn-like">❤️ Like</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Explicación -->
+        <section class="explanation">
+            <h2>🎯 Características Premium</h2>
+            <div class="code-example">
+                <h3>CSS Grid Moderno + Glassmorphism</h3>
+                <pre><code>.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Efecto glassmorphism */
+backdrop-filter: blur(20px);
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);</code></pre>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature">
+                    <h4>🎨 Gradientes Vibrantes</h4>
+                    <p>Colores modernos con gradientes purple-pink y teal-blue</p>
+                </div>
+                <div class="feature">
+                    <h4>✨ Glassmorphism</h4>
+                    <p>Efecto de vidrio esmerilado con backdrop-filter blur</p>
+                </div>
+                <div class="feature">
+                    <h4>⚡ Animaciones Fluidas</h4>
+                    <p>Transiciones suaves con cubic-bezier para mayor elegancia</p>
+                </div>
+                <div class="feature">
+                    <h4>🎭 Botones Premium</h4>
+                    <p>Múltiples estilos: primary, secondary, outline y glass</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Centrado Moderno</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-badge">✨ Bienvenido</div>
+        
+        <h1 class="main-title">
+            <span class="gradient-text">Modal Interactivo</span>
+            <span class="subtitle-line">Experiencia de Usuario Moderna</span>
+        </h1>
+        
+        <p class="description">
+            Descubre cómo un modal bien diseñado puede transformar la experiencia de tus usuarios.
+            Haz clic en el botón para explorar las posibilidades.
+        </p>
+
+        <div class="button-group">
+            <button class="btn-open btn-primary">
+                <span class="btn-icon">🚀</span>
+                <span class="btn-text">Abrir Modal</span>
+                <span class="btn-shine"></span>
+            </button>
+            <button class="btn-info">
+                <span class="btn-icon">ℹ️</span>
+                <span class="btn-text">Más Info</span>
+            </button>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Responsive</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎨</div>
+                <div class="stat-value">A11Y</div>
+                <div class="stat-label">Accesible</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✨</div>
+                <div class="stat-value">CSS3</div>
+                <div class="stat-label">Animaciones</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-header">
+                <h3>🎯 Características del Modal</h3>
+                <span class="badge-pro">PRO</span>
+            </div>
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon gradient-bg-1">📍</div>
+                    <div class="feature-content">
+                        <h4>Centrado Perfecto</h4>
+                        <p>Position fixed con flexbox para centrado absoluto</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon gradient-bg-2">🎭</div>
+                    <div class="feature-content">
+                        <h4>Overlay Elegante</h4>
+                        <p>Fondo semitransparente con efecto blur</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon gradient-bg-3">⌨️</div>
+                    <div class="feature-content">
+                        <h4>Control Total</h4>
+                        <p>Cierre con botón X, clic fuera o tecla ESC</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon gradient-bg-4">🎬</div>
+                    <div class="feature-content">
+                        <h4>Animaciones Fluidas</h4>
+                        <p>Transiciones suaves con CSS animations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">Flexbox</span>
+        </div>
+    </div>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="btn-close" aria-label="Cerrar modal">
+                <span class="close-icon">✕</span>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-icon-wrapper">
+                    <div class="modal-icon">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="url(#gradient1)" stroke-width="2"/>
+                            <path d="M12 6v6l4 2" stroke="url(#gradient1)" stroke-width="2" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea"/>
+                                    <stop offset="100%" style="stop-color:#764ba2"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <h2>¡Bienvenido a tu Modal!</h2>
+                <p class="modal-subtitle">Experiencia de usuario mejorada</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="welcome-message">
+                    <p class="lead-text">
+                        🎉 <strong>¡Felicitaciones!</strong> Has abierto un modal moderno y elegante.
+                    </p>
+                    <p>
+                        Este modal está perfectamente centrado usando <code>position: fixed</code> 
+                        y <code>flexbox</code> para un centrado tanto horizontal como vertical.
+                    </p>
+                </div>
+
+                <div class="modal-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">
+                            <strong>Centrado Perfecto</strong>
+                            <span>Siempre en el centro de la pantalla</span>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">
+                            <strong>Overlay Responsive</strong>
+                            <span>Adaptado a cualquier dispositivo</span>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <div class="highlight-text">
+                            <strong>Animaciones Suaves</strong>
+                            <span>Transiciones elegantes y fluidas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-tip">
+                    <div class="tip-icon">💡</div>
+                    <div class="tip-content">
+                        <strong>Tip Pro:</strong> Puedes cerrar este modal haciendo clic fuera de él, 
+                        presionando la tecla ESC, o usando el botón de cerrar.
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal-secondary">
+                    <span class="btn-icon">📖</span>
+                    Aprender Más
+                </button>
+                <button class="btn-modal-action">
+                    <span class="btn-icon">🎯</span>
+                    ¡Entendido!
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

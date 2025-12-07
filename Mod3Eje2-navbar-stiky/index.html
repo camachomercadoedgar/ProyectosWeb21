@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Sticky | Posicionamiento CSS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Notificaciones Toast -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Navegación Sticky -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#inicio" class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">
+                    <span class="text-main">StickyNav</span>
+                    <span class="text-sub">PRO</span>
+                </span>
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" class="nav-link active">🏠 Inicio</a></li>
+                <li><a href="#features" class="nav-link">✨ Features</a></li>
+                <li><a href="#pricing" class="nav-link">💎 Precios</a></li>
+                <li><a href="#testimonios" class="nav-link">💬 Testimonios</a></li>
+                <li><a href="#contacto" class="nav-link btn-cta">
+                    <span class="btn-icon">⚡</span>
+                    <span>Comenzar</span>
+                    <span class="btn-shine"></span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="nav-progress" id="navProgress"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="particles-bg">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="container">
+            <div class="welcome-badge">
+                <span class="badge-icon">👋</span>
+                <span>Bienvenido a la experiencia Sticky</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="gradient-text">Navbar con Position: Sticky</span>
+            </h1>
+            <p class="hero-subtitle">
+                Descubre cómo crear navegaciones modernas que se mantienen visibles mientras haces scroll.
+                Una experiencia de usuario superior con CSS puro y JavaScript.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="btnExplore">
+                    <span class="btn-icon">🎯</span>
+                    <span>Explorar Ahora</span>
+                    <span class="btn-shine"></span>
+                </button>
+                <button class="btn btn-outline" id="btnLearnMore">
+                    <span class="btn-icon">📖</span>
+                    <span>Aprender Más</span>
+                </button>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <p>Scroll hacia abajo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">✨ Características</span>
+                <h2>Position: Sticky en Acción</h2>
+                <p>Descubre todas las ventajas de usar position: sticky en tus proyectos</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon gradient-1">📌</div>
+                    <h3>Se Pega al Scrollear</h3>
+                    <p>Al llegar a <code>top: 0</code>, el navbar se comporta como <code>position: fixed</code> pero mejor.</p>
+                    <button class="feature-btn" data-feature="sticky">Ver Ejemplo</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gradient-2">🔄</div>
+                    <h3>En el Flujo del Documento</h3>
+                    <p>A diferencia de <code>fixed</code>, sticky permanece en el flujo normal del DOM.</p>
+                    <button class="feature-btn" data-feature="flow">Ver Ejemplo</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gradient-3">⚡</div>
+                    <h3>Mejor Performance</h3>
+                    <p>No requiere JavaScript para funcionar, lo que mejora significativamente el rendimiento.</p>
+                    <button class="feature-btn" data-feature="performance">Ver Ejemplo</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon gradient-4">🎨</div>
+                    <h3>Estilos Dinámicos</h3>
+                    <p>Cambia de apariencia al estar "pegado" usando clases CSS y JavaScript.</p>
+                    <button class="feature-btn" data-feature="dynamic">Ver Ejemplo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">💎 Planes</span>
+                <h2>Precios Transparentes</h2>
+                <p>Elige el plan perfecto para ti sin compromisos ocultos</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Básico</h3>
+                        <p class="pricing-description">Para comenzar</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount">9</span>
+                        <span class="period">/mes</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> 5 Proyectos</li>
+                        <li><span class="check">✓</span> 10GB Almacenamiento</li>
+                        <li><span class="check">✓</span> Soporte Email</li>
+                        <li><span class="check">✓</span> Actualizaciones Básicas</li>
+                    </ul>
+                    <button class="pricing-btn" data-plan="basic">
+                        <span>Seleccionar Plan</span>
+                    </button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="badge-popular">🔥 MÁS POPULAR</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <p class="pricing-description">Más demandado</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount">29</span>
+                        <span class="period">/mes</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> Proyectos Ilimitados</li>
+                        <li><span class="check">✓</span> 100GB Almacenamiento</li>
+                        <li><span class="check">✓</span> Soporte Prioritario 24/7</li>
+                        <li><span class="check">✓</span> Todas las Features</li>
+                    </ul>
+                    <button class="pricing-btn pricing-btn-primary" data-plan="pro">
+                        <span>Comenzar Ahora</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <p class="pricing-description">Para empresas</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="currency">$</span>
+                        <span class="amount">99</span>
+                        <span class="period">/mes</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> Todo Ilimitado</li>
+                        <li><span class="check">✓</span> 1TB Almacenamiento</li>
+                        <li><span class="check">✓</span> Soporte Dedicado</li>
+                        <li><span class="check">✓</span> Personalización Total</li>
+                    </ul>
+                    <button class="pricing-btn" data-plan="enterprise">
+                        <span>Contactar Ventas</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">💬 Testimonios</span>
+                <h2>Lo que Dicen Nuestros Usuarios</h2>
+                <p>Miles de desarrolladores confían en nosotros</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">MG</div>
+                        <div class="testimonial-info">
+                            <h4>María García</h4>
+                            <p>UX Designer @ TechCorp</p>
+                        </div>
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="testimonial-text">
+                        "El navbar sticky mejoró significativamente la navegación en nuestro sitio. 
+                        Los usuarios encuentran lo que buscan mucho más rápido. ¡Increíble!"
+                    </p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">CP</div>
+                        <div class="testimonial-info">
+                            <h4>Carlos Pérez</h4>
+                            <p>Frontend Developer @ StartupX</p>
+                        </div>
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Implementar position: sticky fue mucho más fácil de lo que pensaba. 
+                        El rendimiento es excelente y la experiencia de usuario mejoró notablemente."
+                    </p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">AL</div>
+                        <div class="testimonial-info">
+                            <h4>Ana López</h4>
+                            <p>Product Manager @ WebStudio</p>
+                        </div>
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="testimonial-text">
+                        "La documentación es clara y los ejemplos son prácticos. 
+                        Implementamos sticky navbar en todos nuestros proyectos ahora."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">📧 Contacto</span>
+                <h2>¿Tienes Preguntas?</h2>
+                <p>Estamos aquí para ayudarte. Envíanos un mensaje y te responderemos pronto.</p>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">👤 Nombre Completo</label>
+                        <input type="text" id="name" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">📧 Email</label>
+                        <input type="email" id="email" placeholder="juan@ejemplo.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">📝 Asunto</label>
+                    <input type="text" id="subject" placeholder="¿En qué podemos ayudarte?" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">💬 Mensaje</label>
+                    <textarea id="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">
+                    <span class="btn-icon">📤</span>
+                    <span>Enviar Mensaje</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🚀</span>
+                        <span class="logo-text">
+                            <span class="text-main">StickyNav</span>
+                            <span class="text-sub">PRO</span>
+                        </span>
+                    </div>
+                    <p>La mejor solución para navegaciones sticky modernas.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Precios</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Síguenos</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📱</a>
+                        <a href="#" class="social-icon">🐦</a>
+                        <a href="#" class="social-icon">💼</a>
+                        <a href="#" class="social-icon">📷</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StickyNav PRO. Todos los derechos reservados.</p>
+                <p>Hecho con ❤️ y Position: Sticky</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón "Volver Arriba" -->
+    <button class="btn-top" id="btnTop" title="Volver arriba">
+        <span class="arrow">↑</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

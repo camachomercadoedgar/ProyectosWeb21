@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Tipográfico Premium | Fluid Design</title>
+    <style>
+        /* ===================================== VARIABLES ===================================== */
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #14b8a6;
+            --success: #10b981;
+            --dark: #0f172a;
+            --text-light: #1e293b;
+            --text-secondary: #64748b;
+            --bg-light: #ffffff;
+            --bg-secondary: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* TIPOGRAFÍA FLUIDA CON CLAMP */
+            --fs-body: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+            --fs-h1: clamp(2.5rem, 2rem + 5vw, 4.5rem);
+            --fs-h2: clamp(1.75rem, 1.5rem + 3vw, 3rem);
+            --fs-h3: clamp(1.5rem, 1.3rem + 2vw, 2.25rem);
+            --fs-h4: clamp(1.25rem, 1.1rem + 1.5vw, 1.75rem);
+            --fs-small: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+            
+            --lh-tight: 1.2;
+            --lh-body: 1.7;
+            --lh-relaxed: 1.8;
+        }
+
+        body.dark-mode {
+            --text-light: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --bg-light: #0f172a;
+            --bg-secondary: #1e293b;
+        }
+
+        /* ===================================== RESET ===================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            font-size: var(--fs-body);
+            line-height: var(--lh-body);
+            padding: 2rem 1rem;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        /* ===================================== HEADER ===================================== */
+        .header-controls {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* ===================================== CONTAINER ===================================== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===================================== HEADER SECTION ===================================== */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        h1 {
+            font-size: var(--fs-h1);
+            font-weight: 900;
+            line-height: var(--lh-tight);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: var(--fs-h2);
+            font-weight: 800;
+            line-height: var(--lh-tight);
+            margin: 3rem 0 1.5rem;
+            color: var(--text-light);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: var(--fs-h3);
+            font-weight: 700;
+            line-height: var(--lh-tight);
+            margin: 2.5rem 0 1rem;
+            color: var(--text-light);
+        }
+
+        h4 {
+            font-size: var(--fs-h4);
+            font-weight: 600;
+            line-height: var(--lh-tight);
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: var(--lh-relaxed);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===================================== TYPOGRAPHY ===================================== */
+        p {
+            margin-bottom: 1.5em;
+            max-width: 70ch;
+            color: var(--text-light);
+            line-height: var(--lh-body);
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        code {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding: 0.25em 0.5em;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        blockquote {
+            position: relative;
+            padding: 2rem;
+            margin: 3rem 0;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            color: white;
+            font-size: 1.25em;
+            font-style: italic;
+            font-weight: 500;
+            line-height: var(--lh-relaxed);
+            box-shadow: var(--shadow-lg);
+        }
+
+        blockquote::before {
+            content: '"';
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 4rem 0;
+            opacity: 0.5;
+        }
+
+        /* ===================================== BUTTONS ===================================== */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        body.dark-mode .btn-outline {
+            color: var(--text-light);
+            border-color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-ghost {
+            background: var(--bg-secondary);
+            color: var(--text-light);
+        }
+
+        .btn-ghost:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===================================== CARDS ===================================== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+        }
+
+        /* ===================================== FEATURES LIST ===================================== */
+        .features-list {
+            display: grid;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        /* ===================================== TOAST ===================================== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 320px;
+            transform: translateY(200px);
+            transition: var(--transition);
+            z-index: 2000;
+            border-left: 4px solid;
+        }
+
+        body.dark-mode .toast {
+            background: var(--bg-secondary);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.info { border-left-color: var(--primary); }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-content p {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-content span {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* ===================================== READING PROGRESS ===================================== */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--gradient-primary);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* ===================================== RESPONSIVE ===================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.75rem;
+            }
+
+            .header-controls {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toast {
+                right: 1rem;
+                left: 1rem;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Header Controls -->
+    <div class="header-controls">
+        <button class="control-btn" onclick="toggleTheme()" title="Cambiar tema" id="themeBtn">
+            🌙
+        </button>
+        <button class="control-btn" onclick="increaseFontSize()" title="Aumentar tamaño">
+            A+
+        </button>
+        <button class="control-btn" onclick="decreaseFontSize()" title="Reducir tamaño">
+            A-
+        </button>
+        <button class="control-btn" onclick="shareArticle()" title="Compartir">
+            📤
+        </button>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1>✨ Tipografía Responsive Premium</h1>
+            <p class="subtitle">Un sistema editorial fluido usando CSS Clamp, Custom Properties y diseño moderno</p>
+        </header>
+
+        <article>
+            <h2>🎯 Introducción al Diseño Fluido</h2>
+            <p>
+                Este artículo demuestra un <strong>sistema tipográfico fluido</strong> de nivel profesional. 
+                Si redimensionas la ventana del navegador, notarás que todos los tamaños de fuente 
+                escalan matemáticamente gracias a la función <code>clamp()</code>, sin saltos bruscos.
+            </p>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="showToast('success', '¡Genial!', 'Botón principal activado')">
+                    <span>🚀 Acción Principal</span>
+                </button>
+                <button class="btn btn-secondary" onclick="showToast('info', 'Secundario', 'Botón secundario presionado')">
+                    <span>⚡ Acción Secundaria</span>
+                </button>
+                <button class="btn btn-outline" onclick="showToast('info', 'Outline', 'Estilo outline elegante')">
+                    <span>💎 Outline</span>
+                </button>
+                <button class="btn btn-ghost" onclick="showToast('info', 'Ghost', 'Botón fantasma activado')">
+                    <span>👻 Ghost</span>
+                </button>
+            </div>
+
+            <h3>🎨 Características del Sistema</h3>
+            <p>
+                Este sistema tipográfico implementa las mejores prácticas de diseño editorial moderno,
+                combinando funcionalidad con estética premium. Cada elemento ha sido cuidadosamente 
+                diseñado para ofrecer la mejor experiencia de lectura posible.
+            </p>
+
+            <div class="features-list">
+                <div class="feature-item" onclick="showToast('info', 'Tipografía Fluida', 'Escala perfecta en todos los dispositivos')">
+                    <div class="feature-icon">📏</div>
+                    <div class="feature-content">
+                        <h4>Tipografía Fluida</h4>
+                        <p>Escala perfecta desde móvil hasta 4K usando clamp() y viewport units</p>
+                    </div>
+                </div>
+
+                <div class="feature-item" onclick="showToast('info', 'Modo Oscuro', 'Protege tus ojos con el tema oscuro')">
+                    <div class="feature-icon">🌓</div>
+                    <div class="feature-content">
+                        <h4>Modo Oscuro Completo</h4>
+                        <p>Transiciones suaves entre temas claro y oscuro con un solo click</p>
+                    </div>
+                </div>
+
+                <div class="feature-item" onclick="showToast('success', 'Accesibilidad', 'Diseñado para todos')">
+                    <div class="feature-icon">♿</div>
+                    <div class="feature-content">
+                        <h4>Máxima Accesibilidad</h4>
+                        <p>Contraste óptimo, tamaños ajustables y lectura cómoda para todos</p>
+                    </div>
+                </div>
+
+                <div class="feature-item" onclick="showToast('info', 'Responsive', '100% adaptable')">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h4>Totalmente Responsive</h4>
+                        <p>Perfecto en móviles, tablets, laptops y pantallas grandes</p>
+                    </div>
+                </div>
+            </div>
+
+            <blockquote>
+                "La tipografía en la web debe ser flexible, no rígida. El verdadero diseño responsive es fluido, no escalonado."
+            </blockquote>
+
+            <h3>💡 Casos de Uso Prácticos</h3>
+            <p>
+                Este sistema es ideal para blogs, revistas digitales, documentación técnica, 
+                portfolios creativos y cualquier sitio que priorice la lectura y el contenido editorial.
+                La legibilidad es excepcional gracias al line-height optimizado de <code>1.7</code> 
+                y el ancho máximo de lectura de <code>70ch</code>.
+            </p>
+
+            <div class="card-grid">
+                <div class="card" onclick="showToast('info', 'Blogs', 'Perfecto para artículos largos')">
+                    <div class="card-icon">📝</div>
+                    <h4>Blogs & Artículos</h4>
+                    <p>Ideal para contenido editorial extenso con excelente legibilidad</p>
+                    <button class="btn btn-primary card-btn">
+                        <span>Explorar</span>
+                    </button>
+                </div>
+
+                <div class="card" onclick="showToast('info', 'Documentación', 'Para guías técnicas')">
+                    <div class="card-icon">📚</div>
+                    <h4>Documentación</h4>
+                    <p>Sistema perfecto para documentación técnica y guías</p>
+                    <button class="btn btn-secondary card-btn">
+                        <span>Ver Más</span>
+                    </button>
+                </div>
+
+                <div class="card" onclick="showToast('info', 'Portfolios', 'Muestra tu trabajo')">
+                    <div class="card-icon">🎨</div>
+                    <h4>Portfolios</h4>
+                    <p>Presenta tu trabajo con tipografía elegante y moderna</p>
+                    <button class="btn btn-outline card-btn">
+                        <span>Descubrir</span>
+                    </button>
+                </div>
+            </div>
+
+            <h4>🔧 Implementación Técnica</h4>
+            <p>
+                La implementación usa <code>clamp(min, preferred, max)</code> donde el valor 
+                preferido se calcula con unidades viewport (<code>vw</code>) para crear una 
+                escala fluida y matemáticamente precisa. Por ejemplo:
+            </p>
+            
+            <p>
+                <code>font-size: clamp(2.5rem, 2rem + 5vw, 4.5rem);</code>
+            </p>
+
+            <p>
+                Esto garantiza que en pantallas pequeñas el título nunca será menor a 2.5rem,
+                en pantallas grandes nunca excederá 4.5rem, y entre ambos extremos escalará 
+                proporcionalmente basándose en el ancho del viewport.
+            </p>
+
+            <hr>
+
+            <h2>🎉 Conclusión</h2>
+            <p>
+                Un sistema tipográfico bien diseñado es la base de cualquier sitio web exitoso.
+                Este ejemplo demuestra cómo combinar CSS moderno con principios de diseño 
+                editorial para crear experiencias de lectura excepcionales que funcionan 
+                perfectamente en cualquier dispositivo.
+            </p>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="showToast('success', '¡Gracias!', 'Esperamos que te haya gustado')">
+                    <span>❤️ Me Gusta</span>
+                </button>
+                <button class="btn btn-secondary" onclick="shareArticle()">
+                    <span>📤 Compartir</span>
+                </button>
+                <button class="btn btn-ghost" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <span>⬆️ Volver Arriba</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-icon" id="toastIcon"></div>
+        <div class="toast-content">
+            <p id="toastTitle"></p>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script>
+        let fontSize = 100; // Percentage
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('themeBtn');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️';
+                showToast('success', 'Modo Oscuro', 'Tema oscuro activado');
+            } else {
+                btn.textContent = '🌙';
+                showToast('success', 'Modo Claro', 'Tema claro activado');
+            }
+        }
+
+        // Font Size Controls
+        function increaseFontSize() {
+            if (fontSize < 150) {
+                fontSize += 10;
+                document.documentElement.style.fontSize = fontSize + '%';
+                showToast('success', 'Tamaño Aumentado', `Tamaño actual: ${fontSize}%`);
+            } else {
+                showToast('info', 'Límite Alcanzado', 'Tamaño máximo: 150%');
+            }
+        }
+
+        function decreaseFontSize() {
+            if (fontSize > 70) {
+                fontSize -= 10;
+                document.documentElement.style.fontSize = fontSize + '%';
+                showToast('success', 'Tamaño Reducido', `Tamaño actual: ${fontSize}%`);
+            } else {
+                showToast('info', 'Límite Alcanzado', 'Tamaño mínimo: 70%');
+            }
+        }
+
+        // Share Article
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Sistema Tipográfico Premium',
+                    text: 'Mira este increíble sistema tipográfico fluido',
+                    url: window.location.href
+                }).then(() => {
+                    showToast('success', '¡Compartido!', 'Gracias por compartir');
+                }).catch(() => {
+                    copyToClipboard();
+                });
+            } else {
+                copyToClipboard();
+            }
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast('success', 'Link Copiado', 'URL copiada al portapapeles');
+            });
+        }
+
+        // Reading Progress
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+        });
+
+        // Toast Notification
+        let toastTimeout;
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const titleEl = document.getElementById('toastTitle');
+            const messageEl = document.getElementById('toastMessage');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toast.classList.remove('success', 'info');
+            toast.classList.add(type);
+
+            const icons = {
+                success: '✅',
+                info: 'ℹ️'
+            };
+            icon.textContent = icons[type] || 'ℹ️';
+
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+
+            toast.classList.add('show');
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Initial welcome message
+        setTimeout(() => {
+            showToast('info', '¡Bienvenido! 👋', 'Explora todas las funcionalidades');
+        }, 1000);
+    </script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

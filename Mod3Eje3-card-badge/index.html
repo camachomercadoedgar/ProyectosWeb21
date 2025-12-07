@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards con Badges - E-Commerce Moderno</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Carrito Flotante -->
+    <div class="cart-floating" id="cartFloating">
+        <div class="cart-icon">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div class="container">
+        <header class="page-header">
+            <div class="welcome-badge">✨ Colección Exclusiva</div>
+            <h1>Cards con Badges Posicionados</h1>
+            <p class="subtitle">Descubre productos premium con ofertas increíbles usando position: absolute</p>
+        </header>
+        
+        <div class="cards-grid">
+            <!-- Card 1: Auriculares -->
+            <article class="card" data-product-id="1">
+                <span class="badge badge-new">
+                    <span class="badge-icon">🆕</span>
+                    NUEVO
+                </span>
+                <button class="btn-favorite" data-id="1" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop" alt="Auriculares premium">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="1">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Auriculares Pro Max</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(234)</span>
+                        </div>
+                    </div>
+                    <p class="description">Cancelación de ruido activa y sonido de alta fidelidad para una experiencia inmersiva.</p>
+                    <div class="features">
+                        <span class="feature">🎧 ANC</span>
+                        <span class="feature">🔋 30h</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$299.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Auriculares Pro Max" data-price="299.99" data-id="1">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="1">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2: Reloj -->
+            <article class="card" data-product-id="2">
+                <span class="badge badge-discount">
+                    <span class="badge-icon">🔥</span>
+                    -20%
+                </span>
+                <button class="btn-favorite" data-id="2" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop" alt="Reloj elegante">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="2">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Reloj Smartwatch</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(189)</span>
+                        </div>
+                    </div>
+                    <p class="description">Seguimiento de actividad 24/7 con diseño elegante y duración de batería de 7 días.</p>
+                    <div class="features">
+                        <span class="feature">💓 Monitor</span>
+                        <span class="feature">📍 GPS</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$199.99</span>
+                            <span class="price-old">$249.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Reloj Smartwatch" data-price="199.99" data-id="2">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="2">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3: Gafas -->
+            <article class="card" data-product-id="3">
+                <span class="badge badge-hot">
+                    <span class="badge-icon">🔥</span>
+                    HOT
+                </span>
+                <button class="btn-favorite" data-id="3" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop" alt="Gafas de sol">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="3">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Gafas de Sol Premium</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(156)</span>
+                        </div>
+                    </div>
+                    <p class="description">Protección UV400 con diseño moderno y materiales de primera calidad.</p>
+                    <div class="features">
+                        <span class="feature">☀️ UV400</span>
+                        <span class="feature">💎 Premium</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$149.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Gafas de Sol Premium" data-price="149.99" data-id="3">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="3">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 4: Zapatillas -->
+            <article class="card" data-product-id="4">
+                <span class="badge badge-limited">
+                    <span class="badge-icon">⚡</span>
+                    ¡Últimas unidades!
+                </span>
+                <button class="btn-favorite" data-id="4" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=300&fit=crop" alt="Zapatillas deportivas">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="4">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Zapatillas Running Pro</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(312)</span>
+                        </div>
+                    </div>
+                    <p class="description">Máximo confort y rendimiento para tus entrenamientos más exigentes.</p>
+                    <div class="features">
+                        <span class="feature">👟 Confort</span>
+                        <span class="feature">🏃 Running</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$179.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Zapatillas Running Pro" data-price="179.99" data-id="4">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="4">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 5: Mochila -->
+            <article class="card" data-product-id="5">
+                <span class="badge badge-premium">
+                    <span class="badge-icon">👑</span>
+                    PREMIUM
+                </span>
+                <button class="btn-favorite" data-id="5" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop" alt="Mochila">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="5">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Mochila Profesional</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(267)</span>
+                        </div>
+                    </div>
+                    <p class="description">Compartimento acolchado para laptop y diseño ergonómico anti-robo.</p>
+                    <div class="features">
+                        <span class="feature">💼 Laptop</span>
+                        <span class="feature">🔒 Anti-robo</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$89.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Mochila Profesional" data-price="89.99" data-id="5">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="5">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 6: Perfume -->
+            <article class="card" data-product-id="6">
+                <span class="badge badge-bestseller">
+                    <span class="badge-icon">⭐</span>
+                    Bestseller
+                </span>
+                <button class="btn-favorite" data-id="6" aria-label="Agregar a favoritos">
+                    <span class="heart">❤️</span>
+                </button>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=300&fit=crop" alt="Perfume">
+                    <div class="card-overlay">
+                        <button class="btn-quick-view" data-id="6">
+                            <span class="icon">👁️</span>
+                            Vista Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Fragancia Signature</h3>
+                        <div class="rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="reviews">(445)</span>
+                        </div>
+                    </div>
+                    <p class="description">Esencia única que combina notas frescas y amaderadas para ocasiones especiales.</p>
+                    <div class="features">
+                        <span class="feature">🌸 Floral</span>
+                        <span class="feature">🌲 Amaderado</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="price-section">
+                            <span class="price">$129.99</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-add-cart" data-name="Fragancia Signature" data-price="129.99" data-id="6">
+                                <span class="btn-icon">🛒</span>
+                                <span class="btn-text">Comprar</span>
+                                <span class="btn-shine"></span>
+                            </button>
+                            <button class="btn btn-outline btn-details" data-id="6">
+                                <span class="btn-icon">📋</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Modal de Vista Rápida -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

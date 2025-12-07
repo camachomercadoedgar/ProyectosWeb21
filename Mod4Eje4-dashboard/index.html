@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminPro Premium Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #14b8a6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --sidebar-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-info: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+
+        /* ===================================== DASHBOARD GRID ===================================== */
+        .dashboard {
+            display: grid;
+            grid-template-areas:
+                "sidebar header"
+                "sidebar main";
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 80px 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===================================== SIDEBAR ===================================== */
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--sidebar-bg);
+            color: white;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            z-index: 100;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            margin: 0.25rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: var(--transition);
+        }
+
+        .nav-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .nav-item.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-item.active::before {
+            transform: scaleY(1);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+        }
+
+        /* ===================================== HEADER ===================================== */
+        .header {
+            grid-area: header;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 2rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+        }
+
+        .header-search {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .header-search input {
+            width: 100%;
+            padding: 0.875rem 1.5rem 0.875rem 3rem;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            background: #f1f5f9;
+            transition: var(--transition);
+        }
+
+        .header-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .header-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-btn {
+            position: relative;
+            background: #f1f5f9;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===================================== MAIN CONTENT ===================================== */
+        .main-content {
+            grid-area: main;
+            padding: 2rem;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===================================== STATS GRID ===================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            opacity: 0.1;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-blue::before { background: #6366f1; }
+        .stat-green::before { background: #10b981; }
+        .stat-orange::before { background: #f59e0b; }
+        .stat-purple::before { background: #8b5cf6; }
+
+        .stat-icon {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-blue .stat-icon {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+            color: #6366f1;
+        }
+
+        .stat-green .stat-icon {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            color: #10b981;
+        }
+
+        .stat-orange .stat-icon {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            color: #f59e0b;
+        }
+
+        .stat-purple .stat-icon {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            color: #8b5cf6;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-info p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .stat-change.positive::before {
+            content: "↑ ";
+        }
+
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .stat-change.negative::before {
+            content: "↓ ";
+        }
+
+        /* ===================================== CONTENT GRID ===================================== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-full {
+            grid-column: 1 / -1;
+        }
+
+        /* ===================================== ACTIVITY LIST ===================================== */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .activity-content p {
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .activity-content span {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        /* ===================================== DATA TABLE ===================================== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead th {
+            text-align: left;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #64748b;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .data-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .data-table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(236, 72, 153, 0.03) 100%);
+        }
+
+        /* ===================================== BAR CHART ===================================== */
+        .chart-container {
+            padding: 2rem 0;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 280px;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--gradient-primary);
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .bar span {
+            position: absolute;
+            bottom: -35px;
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* ===================================== MODAL ===================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* ===================================== TOAST NOTIFICATION ===================================== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 320px;
+            transform: translateY(200px);
+            transition: var(--transition);
+            z-index: 1001;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.info { border-left-color: var(--primary); }
+        .toast.warning { border-left-color: var(--warning); }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-content p {
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-content span {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        /* ===================================== RESPONSIVE ===================================== */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 240px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-areas:
+                    "header"
+                    "main";
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                transition: var(--transition);
+                z-index: 1000;
+            }
+            
+            .sidebar.show {
+                left: 0;
+            }
+            
+            .header-search {
+                max-width: 200px;
+            }
+            
+            .user-profile span {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .toast {
+                right: 1rem;
+                left: 1rem;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📊 AdminPro</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="navigateTo('Dashboard'); return false;">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateTo('Analíticas'); return false;">
+                    <span class="nav-icon">📈</span>
+                    <span>Analíticas</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateTo('Usuarios'); return false;">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateTo('Productos'); return false;">
+                    <span class="nav-icon">📦</span>
+                    <span>Productos</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateTo('Ventas'); return false;">
+                    <span class="nav-icon">💰</span>
+                    <span>Ventas</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateTo('Configuración'); return false;">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-search">
+                <input type="search" placeholder="Buscar en el dashboard..." onkeyup="handleSearch(event)">
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="showToast('info', 'Notificaciones', 'Tienes 3 notificaciones nuevas')" title="Notificaciones">
+                    🔔<span class="badge">3</span>
+                </button>
+                <button class="icon-btn" onclick="showToast('info', 'Mensajes', 'Tienes 5 mensajes sin leer')" title="Mensajes">
+                    ✉️<span class="badge">5</span>
+                </button>
+                <div class="user-profile" onclick="showToast('info', 'Perfil', 'Abriendo configuración de perfil...')">
+                    <img src="https://i.pravatar.cc/40" alt="Usuario">
+                    <span>Admin Camacho</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>✨ Dashboard Premium</h1>
+                <button class="btn-primary" onclick="openModal()">
+                    <span>+ Nuevo Registro</span>
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-blue" onclick="showToast('info', 'Usuarios', 'Mostrando detalles de usuarios...')">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3>2,543</h3>
+                        <p>Total Usuarios</p>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-green" onclick="showToast('success', 'Ingresos', 'Crecimiento mensual positivo')">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <h3>$45,678</h3>
+                        <p>Ingresos</p>
+                        <span class="stat-change positive">+8.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-orange" onclick="showToast('warning', 'Pedidos', 'Ligera disminución en pedidos')">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <h3>1,234</h3>
+                        <p>Pedidos</p>
+                        <span class="stat-change negative">-3.1%</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-purple" onclick="showToast('success', 'Satisfacción', 'Excelente puntuación de clientes')">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <h3>4.8</h3>
+                        <p>Satisfacción</p>
+                        <span class="stat-change positive">+0.3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="content-grid">
+                <!-- Recent Activity -->
+                <div class="card">
+                    <h3>⚡ Actividad Reciente</h3>
+                    <div class="activity-list">
+                        <div class="activity-item" onclick="showToast('info', 'Actividad', 'Nuevo usuario: María González')">
+                            <div class="activity-icon">👤</div>
+                            <div class="activity-content">
+                                <p><strong>Nuevo usuario registrado</strong></p>
+                                <span>Hace 5 minutos</span>
+                            </div>
+                        </div>
+                        <div class="activity-item" onclick="showToast('success', 'Venta', 'Pedido #5678 completado')">
+                            <div class="activity-icon">💰</div>
+                            <div class="activity-content">
+                                <p><strong>Venta completada: $234</strong></p>
+                                <span>Hace 15 minutos</span>
+                            </div>
+                        </div>
+                        <div class="activity-item" onclick="showToast('info', 'Envío', 'Pedido en tránsito')">
+                            <div class="activity-icon">📦</div>
+                            <div class="activity-content">
+                                <p><strong>Pedido #1234 enviado</strong></p>
+                                <span>Hace 1 hora</span>
+                            </div>
+                        </div>
+                        <div class="activity-item" onclick="showToast('success', 'Reseña', 'Nueva valoración positiva')">
+                            <div class="activity-icon">⭐</div>
+                            <div class="activity-content">
+                                <p><strong>Nueva reseña 5 estrellas</strong></p>
+                                <span>Hace 2 horas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Products -->
+                <div class="card">
+                    <h3>🏆 Productos Destacados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Ventas</th>
+                                <th>Ingresos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="showToast('info', 'Producto A', 'Mostrando detalles del producto...')">
+                                <td><strong>Producto A</strong></td>
+                                <td>234</td>
+                                <td>$12,340</td>
+                            </tr>
+                            <tr onclick="showToast('info', 'Producto B', 'Mostrando detalles del producto...')">
+                                <td><strong>Producto B</strong></td>
+                                <td>189</td>
+                                <td>$9,450</td>
+                            </tr>
+                            <tr onclick="showToast('info', 'Producto C', 'Mostrando detalles del producto...')">
+                                <td><strong>Producto C</strong></td>
+                                <td>156</td>
+                                <td>$7,800</td>
+                            </tr>
+                            <tr onclick="showToast('info', 'Producto D', 'Mostrando detalles del producto...')">
+                                <td><strong>Producto D</strong></td>
+                                <td>143</td>
+                                <td>$7,150</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sales Chart -->
+                <div class="card card-full">
+                    <h3>📊 Ventas Mensuales</h3>
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 60%" onclick="showToast('info', 'Enero', 'Ventas: $18,500')"><span>Ene</span></div>
+                            <div class="bar" style="height: 75%" onclick="showToast('info', 'Febrero', 'Ventas: $23,100')"><span>Feb</span></div>
+                            <div class="bar" style="height: 55%" onclick="showToast('info', 'Marzo', 'Ventas: $16,900')"><span>Mar</span></div>
+                            <div class="bar" style="height: 85%" onclick="showToast('success', 'Abril', 'Ventas: $26,200 - Mejor mes!')"><span>Abr</span></div>
+                            <div class="bar" style="height: 70%" onclick="showToast('info', 'Mayo', 'Ventas: $21,500')"><span>May</span></div>
+                            <div class="bar" style="height: 90%" onclick="showToast('success', 'Junio', 'Ventas: $27,800 - Récord!')"><span>Jun</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✨ Nuevo Registro</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" placeholder="Ingresa el nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Categoría</label>
+                    <select id="category" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="usuario">Usuario</option>
+                        <option value="producto">Producto</option>
+                        <option value="venta">Venta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" rows="4" placeholder="Agrega una descripción..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary"><span>💾 Guardar</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon" id="toastIcon"></div>
+        <div class="toast-content">
+            <p id="toastTitle"></p>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script>
+        let toastTimeout;
+
+        // Toast Notification
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const titleEl = document.getElementById('toastTitle');
+            const messageEl = document.getElementById('toastMessage');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toast.classList.remove('success', 'error', 'info', 'warning');
+            toast.classList.add(type);
+
+            const icons = {
+                success: '✅',
+                error: '❌',
+                info: 'ℹ️',
+                warning: '⚠️'
+            };
+            icon.textContent = icons[type] || 'ℹ️';
+
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+
+            toast.classList.add('show');
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('modal').classList.add('show');
+            showToast('info', 'Formulario', 'Completa los datos del formulario');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const category = document.getElementById('category').value;
+            
+            showToast('success', '¡Guardado!', `Registro de ${name} guardado exitosamente`);
+            closeModal();
+            event.target.reset();
+        }
+
+        // Navigation
+        function navigateTo(section) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            showToast('info', section, `Navegando a la sección de ${section}`);
+        }
+
+        // Search
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const query = event.target.value;
+                if (query) {
+                    showToast('info', 'Búsqueda', `Buscando: "${query}"`);
+                }
+            }
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Mobile sidebar toggle (for future implementation)
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('show');
+        }
+    </script>
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>

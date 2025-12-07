@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Proyectos HTML/CSS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            color: #ffd700;
+            font-size: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .logo-text {
+            color: white;
+        }
+
+        .logo-text span {
+            color: #ff3366;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-menu li a {
+            color: #999;
+            text-decoration: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            display: block;
+        }
+
+        .nav-menu li a.active {
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .nav-menu li a:hover {
+            color: #00ffff;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(20, 20, 40, 1) 0%, rgba(0, 0, 0, 1) 70%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            animation: bgShift 10s ease-in-out infinite;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .robot {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            z-index: 5;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+        }
+
+        .robot-left {
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: floatLeft 3s ease-in-out infinite;
+        }
+
+        .robot-right {
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+            animation: floatRight 3s ease-in-out infinite 1.5s;
+        }
+
+        .robot-body {
+            position: relative;
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
+            border-radius: 20px;
+            margin: 0 auto;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .robot-head {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(180deg, #3a3a4a 0%, #2a2a3a 100%);
+            border-radius: 50%;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .robot-eye {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #00ffff;
+            border-radius: 50%;
+            top: 50%;
+            box-shadow: 0 0 10px #00ffff;
+            animation: blink 3s infinite;
+        }
+
+        .robot-eye.left {
+            left: 15px;
+        }
+
+        .robot-eye.right {
+            right: 15px;
+        }
+
+        .robot-antenna {
+            position: absolute;
+            width: 3px;
+            height: 20px;
+            background: #00ffff;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 5px #00ffff;
+        }
+
+        .robot-antenna::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00ffff;
+            border-radius: 50%;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #00ffff;
+            animation: pulse 1s infinite;
+        }
+
+        .robot-arm {
+            position: absolute;
+            width: 15px;
+            height: 60px;
+            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
+            border-radius: 10px;
+            top: 10px;
+            border: 1px solid #00ffff;
+        }
+
+        .robot-arm.left {
+            left: -18px;
+            animation: waveLeft 2s ease-in-out infinite;
+        }
+
+        .robot-arm.right {
+            right: -18px;
+            animation: waveRight 2s ease-in-out infinite 1s;
+        }
+
+        .robot-leg {
+            position: absolute;
+            width: 20px;
+            height: 50px;
+            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
+            border-radius: 10px;
+            bottom: -52px;
+            border: 1px solid #00ffff;
+        }
+
+        .robot-leg.left {
+            left: 15px;
+        }
+
+        .robot-leg.right {
+            right: 15px;
+        }
+
+        .robot-foot {
+            position: absolute;
+            width: 25px;
+            height: 15px;
+            background: #00ffff;
+            border-radius: 5px;
+            bottom: -5px;
+            left: -2px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .robot-chest-light {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #00ffff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #00ffff;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            max-width: 1000px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            color: #00ffff;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .hero-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .module-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #00ffff 50%, transparent 100%);
+            margin: 80px 0;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .module-divider::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #00ffff;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #00ffff;
+            animation: pulse 2s infinite;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            background: #000;
+        }
+
+        .module-section {
+            margin-bottom: 100px;
+        }
+
+        .module-header {
+            margin-bottom: 60px;
+            padding-left: 25px;
+            border-left: 5px solid #ff3366;
+            position: relative;
+        }
+
+        .module-header::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff3366 0%, transparent 100%);
+            animation: slideDown 2s ease-in-out infinite;
+        }
+
+        .module-label {
+            font-size: 0.9rem;
+            color: #00ffff;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .module-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .module-title .name {
+            background: linear-gradient(90deg, #ff3366 0%, #ff6699 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #111 0%, #0a0a0a 100%);
+            border: 2px solid #222;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInCard 0.6s ease forwards;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover .project-image::after {
+            left: 100%;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .project-button {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: #ff3366;
+            text-decoration: none;
+            border: 2px solid #ff3366;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #ff3366;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .project-button:hover::before {
+            left: 0;
+        }
+
+        .project-button:hover {
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
+
+        @keyframes floatLeft {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-10px); }
+        }
+
+        @keyframes floatRight {
+            0%, 100% { transform: translateY(-50%) scaleX(-1) translateX(0); }
+            50% { transform: translateY(-50%) scaleX(-1) translateX(10px); }
+        }
+
+        @keyframes waveLeft {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-20deg); }
+        }
+
+        @keyframes waveRight {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0; }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bgShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            0% { height: 0%; }
+            100% { height: 100%; }
+        }
+
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                font-size: 1.7rem;
+            }
+
+            .nav-menu li a {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+
+            .robot {
+                width: 120px;
+                height: 180px;
+            }
+
+            .robot-left {
+                left: 2%;
+            }
+
+            .robot-right {
+                right: 2%;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3.5rem);
+                letter-spacing: 3px;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(1rem, 2.5vw, 1.5rem);
+            }
+
+            .module-title {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 60px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .nav-menu li a {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .robot {
+                display: none;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 40px 20px;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                letter-spacing: 2px;
+                margin-bottom: 15px;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(1rem, 4vw, 1.3rem);
+                margin-bottom: 15px;
+            }
+
+            .hero-description {
+                font-size: clamp(0.9rem, 3vw, 1rem);
+                line-height: 1.6;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .module-section {
+                margin-bottom: 60px;
+            }
+
+            .module-header {
+                margin-bottom: 40px;
+                padding-left: 15px;
+            }
+
+            .module-label {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+
+            .module-title {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+
+            .module-divider {
+                margin: 50px 0;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .project-image {
+                height: 200px;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .project-button {
+                padding: 12px 28px;
+                font-size: 0.85rem;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 12px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon {
+                font-size: 1.4rem;
+            }
+
+            .nav-menu li a {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                min-height: 70vh;
+                padding: 30px 15px;
+            }
+
+            .hero-title {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-description {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .module-header {
+                padding-left: 12px;
+                margin-bottom: 30px;
+            }
+
+            .module-label {
+                font-size: 0.75rem;
+            }
+
+            .module-title {
+                font-size: 1.5rem;
+            }
+
+            .module-divider {
+                margin: 40px 0;
+            }
+
+            .project-image {
+                height: 180px;
+            }
+
+            .project-content {
+                padding: 18px;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+
+            .project-button {
+                padding: 10px 24px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .module-title {
+                font-size: 1.3rem;
+            }
+
+            .nav-menu li a {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <span class="logo-icon">🤖✨</span>
+            <span class="logo-text">CHI PUEDO <span> DISEÑO WEB</span></span>
+            <span class="logo-text">EDGAR CAMACHO</span></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#modulo1">Módulo 1</a></li>
+            <li><a href="#modulo2">Módulo 2</a></li>
+            <li><a href="#modulo3">Módulo 3</a></li>
+            <li><a href="#modulo4">Módulo 4</a></li>
+            <li><a href="#modulo5">Módulo 5</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div id="canvas-container"></div>
+        
+        <div class="robot robot-left">
+            <div class="robot-body">
+                <div class="robot-head">
+                    <div class="robot-antenna"></div>
+                    <div class="robot-eye left"></div>
+                    <div class="robot-eye right"></div>
+                </div>
+                <div class="robot-chest-light"></div>
+                <div class="robot-arm left"></div>
+                <div class="robot-arm right"></div>
+                <div class="robot-leg left">
+                    <div class="robot-foot"></div>
+                </div>
+                <div class="robot-leg right">
+                    <div class="robot-foot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="robot robot-right">
+            <div class="robot-body">
+                <div class="robot-head">
+                    <div class="robot-antenna"></div>
+                    <div class="robot-eye left"></div>
+                    <div class="robot-eye right"></div>
+                </div>
+                <div class="robot-chest-light"></div>
+                <div class="robot-arm left"></div>
+                <div class="robot-arm right"></div>
+                <div class="robot-leg left">
+                    <div class="robot-foot"></div>
+                </div>
+                <div class="robot-leg right">
+                    <div class="robot-foot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">MIS PROYECTOS HTML/CSS</h1>
+            <h2 class="hero-subtitle">Portafolio de Desarrollo Web</h2>
+            <p class="hero-description">
+                Explora mi colección completa de proyectos web profesionales. 
+                Desde fundamentos hasta diseño responsive avanzado con las últimas tecnologías.
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="modulo1" class="module-section">
+            <div class="module-header">
+                <div class="module-label">MÓDULO 1:</div>
+                <h2 class="module-title">
+                    <span class="name">FUNDAMENTOS</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/articulo.png" alt="Artículo">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">ARTÍCULO</h3>
+                        <p class="project-description">Estructura semántica básica con estilos de texto modernos.</p>
+                        <a href="ARTICULO/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/borders.png" alt="Borders">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">BORDERS</h3>
+                        <p class="project-description">Estilos de borde, redondeado y contornos.</p>
+                        <a href="BORDERS/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/mi-perfil.png" alt="Mi Perfil">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">PERFIL USUARIO</h3>
+                        <p class="project-description">Tarjeta de presentación digital personal.</p>
+                        <a href="mi-perfil/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/navegacion.png" alt="Navegación">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NAVEGACIÓN</h3>
+                        <p class="project-description">Creación de menús y enlaces funcionales.</p>
+                        <a href="navegacion/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/paddings.png" alt="Paddings">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">PADDINGS</h3>
+                        <p class="project-description">Control de espaciado interno en cajas.</p>
+                        <a href="PADDINGS/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="module-divider"></div>
+
+        <section id="modulo2" class="module-section">
+            <div class="module-header">
+                <div class="module-label">MÓDULO 2:</div>
+                <h2 class="module-title">
+                    <span class="name">ESTILOS AVANZADOS</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/ejercicios-modulo-2.png" alt="Ejercicios">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">EJERCICIOS MÓDULO 2</h3>
+                        <p class="project-description">Colección de ejercicios prácticos del módulo.</p>
+                        <a href="Ejercicios-Modulo-2/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="module-divider"></div>
+
+        <section id="modulo3" class="module-section">
+            <div class="module-header">
+                <div class="module-label">MÓDULO 3:</div>
+                <h2 class="module-title">
+                    <span class="name">MAQUETACIÓN</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/modal.png" alt="Modal">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">MODAL</h3>
+                        <p class="project-description">Ventanas modales interactivas.</p>
+                        <a href="Mod3Eje1-modal/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/navbar-sticky.png" alt="Navbar Sticky">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NAVBAR STICKY</h3>
+                        <p class="project-description">Barra de navegación fija al hacer scroll.</p>
+                        <a href="Mod3Eje2-navbar-stiky/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/card-badge.png" alt="Card Badge">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">CARD BADGE</h3>
+                        <p class="project-description">Tarjetas con insignias y etiquetas.</p>
+                        <a href="Mod3Eje3-card-badge/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/hero-overlay.png" alt="Hero Overlay">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">HERO OVERLAY</h3>
+                        <p class="project-description">Secciones hero con efectos de superposición.</p>
+                        <a href="Mod3Eje4-hero-overlay/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="module-divider"></div>
+
+        <section id="modulo4" class="module-section">
+            <div class="module-header">
+                <div class="module-label">MÓDULO 4:</div>
+                <h2 class="module-title">
+                    <span class="name">FLEXBOX & GRID</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/navbar-flexbox.png" alt="Navbar Flexbox">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NAVBAR FLEXBOX</h3>
+                        <p class="project-description">Navegación responsive con Flexbox.</p>
+                        <a href="Mod4Eje1-navbar-flexbox/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/gallery-grid.png" alt="Gallery Grid">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">GALLERY GRID</h3>
+                        <p class="project-description">Galería de imágenes usando CSS Grid.</p>
+                        <a href="Mod4Eje2-gallery-grid/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/holy-grail.png" alt="Holy Grail">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">HOLY GRAIL</h3>
+                        <p class="project-description">Layout clásico Holy Grail con Grid.</p>
+                        <a href="Mod4Eje3-holy-grail/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/dashboard.png" alt="Dashboard">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">DASHBOARD</h3>
+                        <p class="project-description">Panel de control administrativo.</p>
+                        <a href="Mod4Eje4-dashboard/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/cards-responsive.png" alt="Cards">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">CARDS RESPONSIVE</h3>
+                        <p class="project-description">Sistema de tarjetas adaptable.</p>
+                        <a href="Mod4Eje5-cards-responsive/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="module-divider"></div>
+
+        <section id="modulo5" class="module-section">
+            <div class="module-header">
+                <div class="module-label">MÓDULO 5:</div>
+                <h2 class="module-title">
+                    <span class="name">RESPONSIVE DESIGN</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/landing-responsive.png" alt="Landing">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">LANDING RESPONSIVE</h3>
+                        <p class="project-description">Página de aterrizaje completamente responsive.</p>
+                        <a href="Mod5Eje1-landing-responsive/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/grid-responsive.png" alt="Grid">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">GRID RESPONSIVE</h3>
+                        <p class="project-description">Sistema de grillas adaptable.</p>
+                        <a href="Mod5Eje2-grid-responsive/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/mod5eje3.png" alt="Avanzado">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">PROYECTO AVANZADO</h3>
+                        <p class="project-description">Proyecto avanzado de responsive design.</p>
+                        <a href="Mod5Eje3/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/img-responsiva.png" alt="Images">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">IMG RESPONSIVE</h3>
+                        <p class="project-description">Manejo de imágenes adaptables.</p>
+                        <a href="mod5Eje4-Img-responsiva/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/typography.png" alt="Typography">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">TYPOGRAPHY</h3>
+                        <p class="project-description">Tipografía responsive y accesible.</p>
+                        <a href="Mod5Eje4-typography/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/imagenes-responsive.png" alt="Images 2">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">IMÁGENES RESPONSIVE</h3>
+                        <p class="project-description">Técnicas avanzadas para imágenes adaptables.</p>
+                        <a href="Mod5Eje5-Imagenes-Responsive/index.html" class="project-button">Ver Proyecto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        const container = document.getElementById('canvas-container');
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+        container.appendChild(renderer.domElement);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCnt = 150;
+        const posArray = new Float32Array(particlesCnt * 3);
+
+        for(let i = 0; i < particlesCnt * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x00ffff,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        const geometry = new THREE.TorusGeometry(2, 0.5, 16, 100);
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x00ffff,
+            emissive: 0x00ffff,
+            emissiveIntensity: 0.5,
+            wireframe: true
+        });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        const pointLight = new THREE.PointLight(0x00ffff, 2);
+        pointLight.position.set(0, 0, 10);
+        scene.add(pointLight);
+
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        scene.add(ambientLight);
+
+        camera.position.z = 8;
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            torus.rotation.x += 0.01;
+            torus.rotation.y += 0.005;
+            torus.rotation.z += 0.005;
+            
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+
+            camera.position.x = mouseX * 0.5;
+            camera.position.y = mouseY * 0.5;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.offsetWidth / container.offsetHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

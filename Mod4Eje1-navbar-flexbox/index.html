@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Flexbox Responsive Moderno</title>
+    <style>
+/* NAVBAR FLEXBOX MODERNO - ESTILOS COMPLETOS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --gradient-warning: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+}
+
+/* TOAST */
+.toast-container { position: fixed; top: 90px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 1rem; }
+.toast { background: white; padding: 1rem 1.5rem; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); min-width: 300px; display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.5s ease; border-left: 4px solid #38ef7d; }
+.toast-icon { font-size: 1.5rem; }
+.toast-content { flex: 1; }
+.toast-title { font-weight: 700; color: #2d3748; }
+.toast-message { font-size: 0.9rem; color: #718096; }
+
+/* NAVBAR */
+.navbar {
+    background: rgba(26, 26, 46, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.navbar.scrolled {
+    background: rgba(26, 26, 46, 0.95);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 75px;
+}
+
+/* LOGO */
+.navbar-logo a {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-logo a:hover {
+    transform: scale(1.05);
+}
+
+.navbar-logo svg {
+    color: #4facfe;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* MENÚ */
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 auto 0 0;
+}
+
+.navbar-menu li a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 0.8rem 1.4rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    position: relative;
+}
+
+.navbar-menu li a:hover {
+    background: rgba(79, 172, 254, 0.1);
+    color: #4facfe;
+    transform: translateY(-2px);
+}
+
+.navbar-menu li a.active {
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.15), rgba(0, 242, 254, 0.15));
+    color: #4facfe;
+}
+
+/* BOTONES */
+.navbar-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.85rem 1.75rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 0.95rem;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-login {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-login:hover {
+    border-color: #4facfe;
+    color: #4facfe;
+    background: rgba(79, 172, 254, 0.1);
+}
+
+.btn-signup {
+    background: var(--gradient-info);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+.btn-signup:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+}
+
+/* HAMBURGER */
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.navbar-toggle span {
+    width: 100%;
+    height: 3px;
+    background: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(9px, 9px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* SECCIONES */
+.section {
+    min-height: 100vh;
+    padding: 5rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-content {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: #2d3748;
+    font-weight: 900;
+}
+
+.section-hero {
+    background: var(--gradient-primary);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.section-hero h1 {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease;
+}
+
+.section-hero p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.btn-cta {
+    background: white;
+    color: #667eea;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+    animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+.btn-cta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+}
+
+/* SERVICIOS */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+}
+
+.service-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border-color: #4facfe;
+}
+
+.service-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: #718096;
+    line-height: 1.7;
+}
+
+/* PORTFOLIO */
+.section-dark {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+.section-dark h2 {
+    color: white;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 300px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.15) rotate(2deg);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+    padding: 2rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    transform: translateY(0);
+}
+
+.portfolio-overlay h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+/* TESTIMONIOS */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.testimonial {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid #4facfe;
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: #718096;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.testimonial-author strong {
+    color: #2d3748;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+}
+
+.testimonial-author span {
+    color: #4facfe;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* CONTACTO */
+.section-contact {
+    background: var(--gradient-info);
+    color: white;
+    text-align: center;
+}
+
+.section-contact h2 {
+    color: white;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 1rem 1.75rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-3px);
+}
+
+.contact-icon {
+    font-size: 1.8rem;
+}
+
+/* FOOTER */
+.footer {
+    background: #1a1a2e;
+    color: white;
+    text-align: center;
+    padding: 2.5rem;
+    font-size: 0.95rem;
+}
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 1rem;
+    }
+    
+    .navbar-toggle {
+        display: flex;
+    }
+    
+    .navbar-menu,
+    .navbar-actions {
+        position: fixed;
+        top: 75px;
+        left: -100%;
+        width: 100%;
+        background: rgba(26, 26, 46, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        transition: left 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .navbar-actions {
+        top: auto;
+        bottom: 0;
+        padding: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-menu.active,
+    .navbar-actions.active {
+        left: 0;
+    }
+    
+    .navbar-menu {
+        gap: 0;
+    }
+    
+    .navbar-menu li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navbar-menu li a {
+        width: 100%;
+        padding: 1rem;
+        justify-content: center;
+    }
+    
+    .navbar-actions {
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .navbar-actions .btn {
+        width: 90%;
+        max-width: 300px;
+    }
+    
+    .section-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section h2 {
+        font-size: 2rem;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+/* MODALES */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideDown 0.4s ease;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-content input {
+    padding: 0.9rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.modal-content input:focus {
+    border-color: #4facfe;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 1.8rem;
+    color: #444;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="#inicio">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>DesignPro</span>
+                </a>
+            </div>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="btn btn-login" id="btnLogin">Iniciar Sesión</button>
+                <button class="btn btn-signup" id="btnSignup">Registrarse</button>
+            </div>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="inicio" class="section section-hero">
+            <div class="section-content">
+                <h1>Bienvenido a DesignPro</h1>
+                <p>Creamos experiencias digitales excepcionales que transforman tu negocio</p>
+                <button class="btn btn-cta" id="btnCta">Comenzar Ahora</button>
+            </div>
+        </section>
+
+        <section id="servicios" class="section">
+            <div class="section-content">
+                <h2>Nuestros Servicios</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎨</div>
+                        <h3>Diseño UI/UX</h3>
+                        <p>Interfaces intuitivas y atractivas que cautivan a tus usuarios.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💻</div>
+                        <h3>Desarrollo Web</h3>
+                        <p>Sitios web modernos y escalables con las últimas tecnologías.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📱</div>
+                        <h3>Apps Móviles</h3>
+                        <p>Aplicaciones móviles nativas y multiplataforma de alta calidad.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚀</div>
+                        <h3>Marketing Digital</h3>
+                        <p>Estrategias efectivas para hacer crecer tu negocio online.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section section-dark">
+            <div class="section-content">
+                <h2>Proyectos Destacados</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Proyecto 1">
+                        <div class="portfolio-overlay">
+                            <h3>E-commerce Fashion</h3>
+                            <p>Tienda online de moda</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Proyecto 2">
+                        <div class="portfolio-overlay">
+                            <h3>Dashboard Analytics</h3>
+                            <p>Panel de control de datos</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" alt="Proyecto 3">
+                        <div class="portfolio-overlay">
+                            <h3>App Fitness</h3>
+                            <p>Aplicación de entrenamiento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonios" class="section">
+            <div class="section-content">
+                <h2>Lo Que Dicen Nuestros Clientes</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Excelente trabajo, superaron todas nuestras expectativas. El diseño es impecable."</p>
+                        <div class="testimonial-author">
+                            <strong>María González</strong>
+                            <span>CEO, TechStart</span>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Profesionales, creativos y muy atentos a los detalles. Totalmente recomendados."</p>
+                        <div class="testimonial-author">
+                            <strong>Carlos Ramírez</strong>
+                            <span>Director, Innovate Co.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section section-contact">
+            <div class="section-content">
+                <h2>Hablemos de Tu Proyecto</h2>
+                <p>Estamos listos para hacer realidad tus ideas</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>info@designpro.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>123 Design Street, Creative City</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<!-- MODAL LOGIN -->
+<div class="modal" id="modalLogin">
+    <div class="modal-content">
+        <span class="modal-close" data-close="modalLogin">&times;</span>
+        <h2>Iniciar Sesión</h2>
+
+        <form id="loginForm">
+            <label>Email:</label>
+            <input type="email" id="loginEmail" required placeholder="correo@ejemplo.com">
+
+            <label>Contraseña:</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••">
+
+            <button type="submit" class="btn btn-signup" style="width:100%;">Ingresar</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL REGISTRO -->
+<div class="modal" id="modalSignup">
+    <div class="modal-content">
+        <span class="modal-close" data-close="modalSignup">&times;</span>
+        <h2>Crear Cuenta</h2>
+
+        <form id="signupForm">
+            <label>Nombre Completo:</label>
+            <input type="text" id="signupName" required placeholder="Tu nombre">
+
+            <label>Email:</label>
+            <input type="email" id="signupEmail" required placeholder="correo@ejemplo.com">
+
+            <label>Contraseña:</label>
+            <input type="password" id="signupPassword" required placeholder="Mínimo 6 caracteres">
+
+            <button type="submit" class="btn btn-cta" style="width:100%;">Registrarse</button>
+        </form>
+    </div>
+</div>
+
+    <footer class="footer">
+        <p>&copy; 2025 DesignPro. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+// JAVASCRIPT COMPLETO
+const navbarToggle = document.getElementById('navbarToggle');
+const navbarMenu = document.getElementById('navbarMenu');
+const navbarActions = document.querySelector('.navbar-actions');
+const navLinks = document.querySelectorAll('.nav-link');
+const navbar = document.getElementById('navbar');
+const btnLogin = document.getElementById('btnLogin');
+const btnSignup = document.getElementById('btnSignup');
+const btnCta = document.getElementById('btnCta');
+
+
+// TOAST
+function showToast(title, message) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+        <div class="toast-icon">✨</div>
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+    `;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.5s ease';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
+// MENU TOGGLE
+navbarToggle.addEventListener('click', () => {
+    navbarToggle.classList.toggle('active');
+    navbarMenu.classList.toggle('active');
+    navbarActions.classList.toggle('active');
+    document.body.style.overflow = navbarMenu.classList.contains('active') ? 'hidden' : '';
+});
+
+// NAV LINKS
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navbarToggle.classList.remove('active');
+        navbarMenu.classList.remove('active');
+        navbarActions.classList.remove('active');
+        document.body.style.overflow = '';
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+    });
+});
+
+// SCROLL
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// SCROLL SPY
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (activeLink) activeLink.classList.add('active');
+        }
+    });
+}, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+
+sections.forEach(section => observer.observe(section));
+
+// BOTONES
+btnLogin.addEventListener('click', () => {
+    showToast('🔐 Iniciar Sesión', 'Redirigiendo al formulario de login...');
+    btnLogin.style.transform = 'scale(0.95)';
+    setTimeout(() => btnLogin.style.transform = '', 200);
+});
+
+btnSignup.addEventListener('click', () => {
+    showToast('✅ Registro', 'Abriendo formulario de registro...');
+    btnSignup.style.transform = 'scale(0.95)';
+    setTimeout(() => btnSignup.style.transform = '', 200);
+});
+
+btnCta.addEventListener('click', () => {
+    showToast('🚀 ¡Comencemos!', 'Preparando tu experiencia personalizada...');
+    btnCta.style.transform = 'scale(0.95)';
+    setTimeout(() => btnCta.style.transform = '', 200);
+});
+
+// CLOSE ON CLICK OUTSIDE
+document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target) && navbarMenu.classList.contains('active')) {
+        navbarToggle.classList.remove('active');
+        navbarMenu.classList.remove('active');
+        navbarActions.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// FADE IN CARDS
+const cards = document.querySelectorAll('.service-card, .portfolio-item, .testimonial');
+const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+}, { threshold: 0.1 });
+
+cards.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    fadeObserver.observe(el);
+});
+
+// ADD slideOut ANIMATION
+const style = document.createElement('style');
+style.textContent = '@keyframes slideOut { to { transform: translateX(400px); opacity: 0; } }';
+document.head.appendChild(style);
+
+// WELCOME
+setTimeout(() => showToast('👋 ¡Bienvenido!', 'Explora nuestros servicios y proyectos'), 1500);
+
+console.log('🚀 Navbar Flexbox Moderno Cargado');
+
+    </script>
+    <script>
+// ---------- MODALES ----------
+const modalLogin = document.getElementById("modalLogin");
+const modalSignup = document.getElementById("modalSignup");
+const closeButtons = document.querySelectorAll(".modal-close");
+
+// Abrir
+btnLogin.addEventListener("click", () => modalLogin.style.display = "flex");
+btnSignup.addEventListener("click", () => modalSignup.style.display = "flex");
+
+// Cerrar
+closeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.getElementById(btn.dataset.close).style.display = "none";
+    });
+});
+
+// Cerrar si clic fuera del modal
+window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal")) e.target.style.display = "none";
+});
+
+// ---------- SIMULACIÓN LOGIN DEMO ----------
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+
+    // Usuario demo
+    if (email === "demo@demo.com" && password === "123456") {
+        showToast("Inicio de Sesión", "Has ingresado correctamente ✔️");
+        modalLogin.style.display = "none";
+    } else {
+        showToast("Error", "Credenciales incorrectas ❌");
+    }
+});
+
+// ---------- SIMULACIÓN REGISTRO DEMO ----------
+document.getElementById("signupForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    showToast("Registro Exitoso", "Tu cuenta demo ha sido creada ✔️");
+    modalSignup.style.display = "none";
+});
+</script>
+
+</body>
+<!-- Copia este código y pégalo al INICIO de cada archivo index.html de tus proyectos -->
+<!-- Justo después de la etiqueta <body> -->
+
+<style>
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #00ffff 0%, #00ff88 100%);
+    color: #0a0a0a;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.back-to-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+.back-to-home::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span>Inicio</span>
+</a>
+</html>
